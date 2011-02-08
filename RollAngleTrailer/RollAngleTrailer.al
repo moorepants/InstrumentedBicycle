@@ -82,6 +82,11 @@ prj_d4> = express(p_p5_p6> - dot(p_p5_p6>, n2>)*n2>, n)
 prj_x>  = express(p_p6_p7> - dot(p_p6_p7>, n2>)*n2>, n)
 prj_d5> = express(p_p8_p9> - dot(p_p8_p9>, n2>)*n2>, n)
 
+% wheel centers
+prj_bw> = express(p_p1_p2> - dot(p_p1_p2>, n2>)*n2>, n)
+prj_rw> = express(p_p1_p8> - dot(p_p1_p8>, n2>)*n2>, n)
+prj_lw> = express(p_p1_p9> - dot(p_p1_p9>, n2>)*n2>, n)
+
 % four points for each wheel, used to map the ellipse in svg
 points bwe{4}, rwe{4}, lwe{4}
 

@@ -5,7 +5,7 @@ frames wheel, fork, trailer
 
 variables roll, pitch, pot
 
-% the wheel rolls relative to the ground
+% the wheel rolls (leans) relative to the ground
 simprot(n, wheel, 1, roll)
 
 % the trailer fork can pitch relative to the wheel

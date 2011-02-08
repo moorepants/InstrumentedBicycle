@@ -15,10 +15,10 @@ roll = np.linspace(-pi/3, pi/3, num=500)
 
 # the geometry
 rr = 13.
-rt = 4.
-d1 = 2.
-d2 = 2.
-d3 = 8.
+d1 = 12
+rt = rr-d1
+d2 = 0.
+d3 = 0.
 d4 = 16.
 d5 = 6.
 
@@ -49,9 +49,7 @@ def find_pitch(x, roll, rr, rt, d1, d2, d3, d4, d5):
     '''
     x : pitch
     '''
-    eq = np.zeros(2)
-    eq[0] = rt - np.cos(roll)*(rr-d1-d4*np.sin(x)-(rr-d1-rt)*np.cos(x))
-    return eq
+    return rt - np.cos(roll)*(rr-d1-d4*np.sin(x)-(rr-d1-rt)*np.cos(x))
 
 pitch = np.zeros_like(roll)
 pot = np.zeros_like(roll)
@@ -61,7 +59,7 @@ for i, ang in enumerate(roll):
         pitchguess = 0.
     else:
         pitchguess = pitch[i-1]
-    pitch[i] = fsolve(find_pitch, 0.,
+    pitch[i] = fsolve(find_pitch, pitchguess,
                  args=(ang, rr, rt, d1, d2, d3, d4, d5))
     pot[i] = np.arctan(-np.tan(ang)/np.cos(pitch[i]))
 

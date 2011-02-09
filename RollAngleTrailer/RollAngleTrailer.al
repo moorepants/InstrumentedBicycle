@@ -64,6 +64,7 @@ p_p9_p11> = rt*unitvec(n3>-dot(n3>,trailer2>)*trailer2>)
 
 % force the trailer axle center to be rt above the ground
 zero1 = dot(n3>, p_p1_p7>) + rt
+dzdp = d(zero1, pitch)
 
 % force the trailer axle to be horizontal
 zero2 = dot(trailer2>, n3>)

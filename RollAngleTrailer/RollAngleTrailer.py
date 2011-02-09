@@ -10,10 +10,17 @@ from math import pi
 from scipy.optimize import fsolve, newton
 import svgfig as svg
 
-def pitch_roll_constraint(x, roll, rr, rt, d1, d4): '''
+def pitch_roll_constraint(x, roll, rr, rt, d1, d4):
+    '''
     x : trailer pitch
     '''
-    return rt - np.cos(roll)*(rr-d1-d4*np.sin(x)-(rr-d1-rt)*np.cos(x))
+    return rt-np.cos(roll)*(rr-d1-d4*np.sin(x)-(rr-d1-rt)*np.cos(x))
+
+def dcondpitch(x, roll, rr, rt, d1, d4):
+    '''
+    The derivative of the pitch_roll_constraint.
+    '''
+    return np.cos(roll)*(d4*np.cos(x)-(rr-d1-rt)*np.sin(x))
 
 def compute_pitch(pitchguess, roll, rr, rt, d1, d4):
     return newton(pitch_roll_constraint, pitchguess, args=(roll, rr, rt, d1, d4))
@@ -54,11 +61,12 @@ roll = np.linspace(-pi/2, pi/2, num=500)
 
 # the geometry
 rr = 13.
+rt = 38./25.4
 d1 = 0.
-rt = 1.5
 d2 = 0.
 d3 = 12.
-d3 = 0.  d5 = 6.
+d4 = 16.
+d5 = 6.
 
 pitch = np.zeros_like(roll)
 pot = np.zeros_like(roll)
@@ -109,7 +117,7 @@ j2 = svg.SVG('circle', cx=d2+d4, cy=rt, r=0.5)
 j = svg.SVG('g', j1, j2, stroke='blue', fill='blue')
 
 group = svg.SVG("g", rwheel, twheel, hitch, trailer, j,
-                transform="translate(20, 50)")
+                transform="translate(20, 50) rotate(180)")
 group.save()
 
 group.inkview()

@@ -28,33 +28,48 @@ def compute_pitch(pitchguess, roll, rr, rt, d1, d4):
 def compute_pot(roll, pitch):
     return np.arctan(-np.tan(roll)/np.cos(pitch))
 
-###def draw_trailer(roll, rr, rt, d1, d2, d3, d4, d5):
-    #### calculate the pitch and pot
-    ###pitch = compute_pitch(0., roll, rr, rt, d1, d4)
-    ###pot = compute_pot(roll, pitch)
-###
-    #### some common expressions
-    ###sr = np.sin(roll)
-    ###cr = np.cos(roll)
-    ###sp = np.sin(pitch)
-    ###cp = np.cos(pitch)
-    ###spo = np.sin(pot)
-    ###cpo = np.cos(pot)
-###
-    #### draw the bicycle wheel
-    ###bwcen = [0., rr*cr]
-    ###bwrad = [rr, rr*cr]
-    ###bwheel = svg.SVG('ellipse', cx=bwcen[0], cy=bwcen[1], rx=bwrad[0],
-            ###ry=bwrad[1])
-###
-    #### draw the right trailer wheel
-    ###rwcen = 
-    ###(0.5*d5*sp*spo+(rr-d1-rt)*sp-d2-d4*cp)*n1> + (d4*sp*cr+(d1-rr)*cr+(rr-d1-rt)*cp*cr+0.5*d5*(sr*cpo+spo*cp*cr))*n3>
-    ###rwheel = svg.SVG('circle', cx=rwcen[0], cy=rwcen[1], r=rt)
-###
-    ###scene = svg.SVG('g', bwheel, rwheel)
-    ###scene.save('scene.svg')
-    ###scene.inkview()
+def draw_trailer(rr, rt, d1, d2, d3, d4, d5):
+
+    layout = svg.canvas()
+    layout.attr['width'] = '40in'
+    layout.attr['height'] = '60in'
+    layout.attr['viewBox'] = '0 0 40 60'
+    # draw the wheels
+    rwheel = svg.SVG("circle", cx=0., cy=rr, r=rr)
+    twheel = svg.SVG("circle", cx=d2+d4, cy=rt, r=rt)
+    # draw the trailer hitch
+    hitch1 = svg.SVG('line', x1=0., y1=rr, x2=0., y2=rr-d1)
+    hitch2 = svg.SVG('line', x1=0., y1=rr-d1, x2=d2, y2=rr-d1)
+    hitch = svg.SVG('g', hitch1, hitch2)
+    # draw the trailer
+    tr = []
+    tr.append(svg.SVG("line", x1=d2, y1=rr-d1, x2=d2, y2=rr-d1-d3))
+    tr.append(svg.SVG("line", x1=d2, y1=rr-d1-d3, x2=d2+d4, y2=rr-d1-d3))
+    tr.append(svg.SVG('line', x1=d2+d4, y1=rr-d1-d3, x2=d2+d4, y2=rt))
+    trailer = svg.SVG('g', tr[0], tr[1], tr[2])
+    # add some dots for the joints
+    j1 = svg.SVG('circle', cx=d2, cy=rr-d1, r=0.2)
+    j2 = svg.SVG('circle', cx=d2+d4, cy=rt, r=0.2)
+    j = svg.SVG('g', j1, j2, stroke='blue', fill='blue')
+    # draw a rectangle for the pot joint
+    potrev = svg.SVG('rect', x=(d2+d4)/2, y=rr-d1-d3, width="2", height="1",)
+    # draw some coordinate axes
+    start = svg.make_marker('start', 'arrow_start')
+    end = svg.make_marker('end', 'arrow_end')
+    newtonian = svg.SVG('path',
+                        d='M -10,0 0,0 0,-10',
+                        marker_start='url(#start)',
+                        marker_end='url(#end)')
+
+    group = svg.SVG("g", rwheel, twheel, hitch, trailer, j, potrev, newtonian,
+                    start, end, transform="translate(15, 15)")# rotate(180)")
+
+    layout.append(group)
+    layout.save()
+
+    layout.inkview()
+
+    return layout
 
 # define some bicycle roll angles
 roll = np.linspace(-pi/2, pi/2, num=500)
@@ -77,7 +92,6 @@ for i, ang in enumerate(roll):
     else:
         pitchguess = pitch[i-1]
     x = compute_pitch(pitchguess, ang, rr, rt, d1, d4)
-    print x
     pitch[i] = x
     pot[i] = compute_pot(ang, pitch[i])
 
@@ -97,29 +111,6 @@ plt.figure(3)
 p = np.linspace(-pi, pi, num=100)
 plt.plot(p, pitch_roll_constraint(p, 0., rr, rt, d1, d4))
 
-plt.show()
+#plt.show()
 
-rwheel = svg.SVG("circle", cx=0., cy=rr, r=rr)
-twheel = svg.SVG("circle", cx=d2+d4, cy=rt, r=rt)
-# draw the trailer hitch
-hitch1 = svg.SVG('line', x1=0., y1=rr, x2=0., y2=rr-d1)
-hitch2 = svg.SVG('line', x1=0., y1=rr-d1, x2=d2, y2=rr-d1)
-hitch = svg.SVG('g', hitch1, hitch2)
-# draw the trailer
-tr = []
-tr.append(svg.SVG("line", x1=d2, y1=rr-d1, x2=d2, y2=rr-d1-d3))
-tr.append(svg.SVG("line", x1=d2, y1=rr-d1-d3, x2=d2+d4, y2=rr-d1-d3))
-tr.append(svg.SVG('line', x1=d2+d4, y1=rr-d1-d3, x2=d2+d4, y2=rt))
-trailer = svg.SVG('g', tr[0], tr[1], tr[2])
-# add some dots for the joints
-j1 = svg.SVG('circle', cx=d2, cy=rr-d1, r=0.5)
-j2 = svg.SVG('circle', cx=d2+d4, cy=rt, r=0.5)
-j = svg.SVG('g', j1, j2, stroke='blue', fill='blue')
-
-group = svg.SVG("g", rwheel, twheel, hitch, trailer, j,
-                transform="translate(20, 50) rotate(180)")
-group.save()
-
-group.inkview()
-
-#draw_trailer(pi/3, rr, rt, d1, d2, d3, d4, d5)
+layout = draw_trailer(rr, rt, d1, d2, d3, d4, d5)

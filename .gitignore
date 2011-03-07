@@ -2,3 +2,13 @@
 *.iam
 *.ipj
 alTmp*
+*.png
+*.jpg
+*.pdf
+*.pyc
+*.swp
+*.h5
+*.all
+*.zip
+*.JPG
+BicycleDAQ

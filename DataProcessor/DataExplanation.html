@@ -5,9 +5,11 @@
     output is of the VectorNav. Right now it can either be 14 or 253. 14 is the
     filtered data and 253 is the unfiltered. Refer to the VN-100
     documentation.</dd>
+
     <dt>Rider</dt>
     <dd>This gives the first name of the person riding the bicycle or 'None' if
     noone is on the bicycle while the data was taken.</dd>
+
     <dt>Bicycle</dt>
     <dd>
     The gives the bicycle configuration.
@@ -15,6 +17,7 @@
         <li>Rigid Rider: The instrumented bicycle with the rigid body
         cast.</li></ul>
     </dd>
+
     <dt>Maneuver</dt>
     <dd>
         The particular maneuver being performed.
@@ -43,17 +46,54 @@
             or a combination of both.</li>
         </ul>
     </dd>
-    <dt>NINumSamples</dt>
+
+    <dt>NINumSamples, integer</dt>
     <dd>The number of samples taken during the run on the NI USB-6218</dt>
-    <dt>VNavNumSamples</dt>
+
+    <dt>VNavNumSamples, integer</dt>
     <dd>The number of samples taken for the run on the VN-100</dt>
-    <dt>RunID</dt>
+
+    <dt>RunID, integer</dt>
     <dd>The unique five digit number for the run</dt>
-    <dt>NISampleRate</dt>
+
+    <dt>NISampleRate, integer</dt>
     <dd>The sample rate in hertz of the NI USB-6218</dt>
-    <dt>VNavSampleRate</dt>
+
+    <dt>VNavSampleRate, integer</dt>
     <dd>The sample rate in hertz of the NI USB-6218</dt>
+
     <dt>ReferenceFrameRotation</dt>
     <dd>The output of the VectorNav showing the rotation matrix for the
     device.</dd>
+
+    <dt>Speed, float</dt>
+    <dd>The desired speed of the bicycle. This is slighty redundant, the rear
+    wheel speed motor voltage should be used for the actual speed.</dd>
+
+    <dt>Environment, string</dt>
+    <dd>This is the location, building and/or equipment where the data was
+    taken. Options include: Pavilion Floor, Laboratory, Hull Treadmill</dd>
+
+    <dt>Duration, float</dt>
+    <dd>The duration of the run in seconds.</dd>
+
+    <dt>VNavComPort, string</dt>
+    <dd>The Windows communications port that the VN-100 is connected to. The is
+    typically COM3 but could be others.</dd>
+
+    <dt>Wait, float</dt>
+    <dd>This is the time in seconds that the software waits for the rider to press the
+    collect data trigger. If the rider doesn't push the button before this
+    time, the software crashes.</dd>
+
+    <dt>Baudrate, integer</dt>
+    <dd>This is the baud rate at which the VN-100 is connected at.</dd>
+
+    <dt>ModelNumber, string</dt>
+    <dd>This is the raw string from the VN-100 displaying the device's model
+    number.</dd>
+
+    <dt></dt>
+    <dd></dd>
+
 </dl>

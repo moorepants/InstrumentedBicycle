@@ -63,23 +63,26 @@ p_ho_s> = d * h1>
 
 % we know the velocity of point v (we integrate the accelerometer signals)
 v_v_n> = vv1 * b1> + vv2 * b2> + vv3 * b3>
+a_v_n> = vv1' * b1> + vv2' * b2> + vv3' * b3>
 
 % find the velocity of s in n, knowing the velocity of v in n, both points
 % being in frame b
 v2pts(n, b, v, s)
+a2pts(n, b, v, s)
 
 % find the velocity of ho in n, knowing the velocity of s in n, both points
 % beign in body h
 v2pts(n, h, s, ho)
+a2pts(n, h, s, ho)
 
 % now find the angular momentum of the handlebar in n about s
-H_h_s_n> = momentum(angular, s, h)
+H_h_ho_n> = momentum(angular, ho, h)
 
 % take the derivative
-hdot> = dt(H_h_s_n>, n)
+hdot> = dt(H_h_ho_n>, n)
 
 % form the Newton/Eular equation
-Tdelta = dot(hdot>, h3>) + Tm + c * delta' + Tf
+Tdelta = dot(hdot> + cross(p_s_ho>, mh * a_ho_n>), h3>) + Tm + c * delta' + Tf
 
 % we don't actually measure delta', use delta' = wh3 - wb3 instead
 Tdelta = replace(Tdelta, delta'=wh3 - wb3)

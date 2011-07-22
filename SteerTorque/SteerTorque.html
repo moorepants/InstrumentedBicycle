@@ -1,0 +1,778 @@
+<head>
+    <script type="text/javascript"
+           src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<h2>Literature Review</h2>
+<hr />
+<p>There are very few published studies that measure or attempt to measure
+steer torque on a bicycle or lightweight single track vehicle but there are
+quite a few more analytical studies that attempt to predict steer torques. The
+following lists some that I have read.</p>
+<h3>Steer torque from models</h3>
+<p><a title="References" class="internal-link"
+    href="resolveuid/e3329e0d28ba360667c5fd57947c8441#Limebeer2006">Limebeer2006</a></p>
+<p>Limebeer and Sharp show a graph of steer torque for the benchmark bicycle
+model on page 47 for step inputs of steer torque that range from -0.5 to 2.5 Nm
+for extreme roll and steer angles.</p>
+<p><a title="References" class="internal-link"
+    href="resolveuid/e3329e0d28ba360667c5fd57947c8441#Sharp2007">Sharp2007</a></p>
+<p>Robin Sharp uses a multi-degree of freedom motorcycle model and an LQR
+controller with preview to control a motorcycle moving at 30 m/s through a 4
+meter lane change and a 250 meter S-turn. For the lane change he gets torques
+ranging from about -20 Nm to 55 Nm for a more aggressive control and -4 to 6 Nm
+for less aggressive control. The S-turn gives torques from -40 Nm to 70 Nm with
+a sharp peak in torque in the middle of the S-turn.</p>
+<p><a title="References" class="internal-link"
+    href="resolveuid/e3329e0d28ba360667c5fd57947c8441#Sharp2007a">Sharp2007a</a></p>
+<p>Robin Sharp uses the benchmark bicycle model and an LQR controller with
+preview to follow a randomly generated path that has about 2 meter lateral
+deviations. The bicycle is traveling at 10 m/s and the steer torque ranges from
+about -15 to 15 Nm. Medium control reduces the torques to under +/- 10 Nm.
+Straight line to circle path maneuvers show torques ranging from -0.5 to 0.5 Nm
+for loose controls and -2.5 to 2.5 for medium controls.</p>
+<p><a title="References" class="internal-link"
+    href="resolveuid/e3329e0d28ba360667c5fd57947c8441#Sharp2008a">Sharp2008a</a></p>
+<p>Robin Sharp used the benchmark bicycle model and an LQR controller with
+preview to make a bicycle track a 4 meter lane change at 6 m/s. During this
+manuever, the steer toque ranged from about -1 to 1 Nm. He also showed a very
+fine steer torque variation in the range of 0 to 0.0025 Nm about 10 meters
+before the start of the lane change.</p>
+<p><a title="References" class="internal-link"
+    href="resolveuid/e3329e0d28ba360667c5fd57947c8441#Peterson2009">Peterson2009</a></p>
+<p>Peterson and Hubbard show the steady turning required steering torques for
+the benchmark bicycle on page 7. The torques for lean angles from 0 to 10
+degrees and steer from 0 to 45 degrees are under 3 Nm.</p>
+
+<h3>Experimental Steer Torque</h3>
+<p><a title="References" class="internal-link"
+    href="resolveuid/e3329e0d28ba360667c5fd57947c8441#Weir1979a">Weir1979a</a></p>
+<p>Weir et al. designed an instrumented motorcycle with a torque sensor. The
+range was +/- 70 Nm with 1% accuracy and 10 Hz dynamic range. The crosstalk
+due to the other moments on the steer were removed with by utilizing two thrust
+bearings. It included stops to prevent sensor overload protection and weighed
+14 Newtons. They comment that the handlebars are significantly rigid for their
+purposes. It was a modular design set up for multiple motorcycles. They comment
+on the range being too large for small amplitude inputs used in steady turning
+and straight running and that more sensitivity would be needed to measure these
+accurately. Weir used this to measure steer torques for two motorcycles at
+various speeds (10 m/s) for steady turning and lane change maneuvers. The
+steady turning produced torques in the range of -10 to 30 Nm and the lane
+change produced -20 to 55 Nm.</p>
+<img class="image-inline captioned"
+    src="resolveuid/70ffec06b2a0a0b062825cea5f48b766/image_preview"
+    alt="weirSteerTorque.png" />
+<p>Lorenzo1997</p>
+<p>David de Lorenzo instrumeted a bike to measure pedal forces, handlebar
+forces, hub forces to measure the in-plane structural loads. He took the bike
+to the trails and had 7 riders do a downhill section. The hand reactions were
+measured with a handlerbar sensitive to x (pointing forward and parallel to the
+ground) and z (pointing upwards, perpendicular to the ground) axis forces on
+both the left and right sides of the handlebar. Net torque about any vector in
+the fork plane of symmetry can be calculated from these. Figure 3d shows a plot
+of steering torque with maximums around 7 Nm. The stem extension torque
+(representing the torque from pushin down and up on the handlebars) reaches 15
+Nm. The calibration information leads me to believe that the crosstalk from the
+all of the forces and moments on the handlebars gives a very low accuracy for
+the reported torques, probably in the +/- 1 to 3 Nm range.</p>
+<p><a title="References" class="internal-link"
+    href="resolveuid/e3329e0d28ba360667c5fd57947c8441#Biral2003">Biral2003</a></p>
+<p>Biral et al. designed a custom steer torque measurement system using a
+cantilever beam. They don't specifically discuss the cross talk, but do mention
+that they use a half-bridge strain gauge. This design seems that it could be
+susceptible to cross talk from the forces applied to the handlebars by the
+rider. But they also report experimental values for torque that match model
+predictions very well. The measure torques from -20 to 20 Nm for a
+slalom maneuver at 13 m/s.</p>
+<img class="image-inline captioned image-inline"
+    src="resolveuid/f9b5e6dae31958f0c23a8138ba463478/image_preview"
+    alt="Biral's Steer Torque Design" />
+
+<p><a title="References" class="internal-link"
+    href="resolveuid/e3329e0d28ba360667c5fd57947c8441#Cheng2003">Cheng2003</a></p>
+<p>This is a report about a design project at UCSB to develop and implement a
+steer torque measurement device (same one shown the Åström paper). He gives a
+pretty bad anedoctal introduction to bicycle dynamics, but the experiments and
+measurements seem to be one of a kind. They did some basic experiments by
+attaching a torque wrench to a bicycle and made left at right turns at speeds
+from 0 to 13 m/s (0 to 30mph). The torques were under 5Nm except for the 13 m/s
+trial which read about 20 Nm. They designed a pretty nice compac torque
+measurement setup by mounting the handlebars on bearings and using a linear
+force transducer to connect the handlbars to the steer tube which reduced the
+effects of other moments and forces acting on the steer tube. The use of
+bearings and rodends may be questionable as there is bearing friction and slop.
+Furthermore, downward forces on the handlebars could possibly still be
+transmitted to the load cell. The design does allow one to choose the lever arm
+for the load cell, thus giving some choice to amplify the force signal. They
+set it up to measure from 0 to 84 Nm with a Model SM Series S-type load cell
+from Interface with a 670 Newton range. They used a transducer amplifier also
+for signal conditioning. There are several sections on calibration, with some
+description of the use of pulleys and cables to apply a torque to the
+handlebars. They measured the torque during two different manuever types: a
+sharp turn at various angles and steady turns on various diameter circles both
+at 10mph (4.5 meters/second). The rider maintained constant speed through
+visual feedback of a speedometer. He talks of very noisy measurements and
+filters the noise by some type of moving average. He does not identify an
+countersteering. He claims the rider turns the handle bars right to initiate a
+right turn. There seems to be no counter-torque in the data for turns. For the
+sharp turns the highest reported torque is about 10 Nm, for the steady turning
+he reports the highest average torque as 1 Nm.</p>
+<p>Download the final report and associated data files here: <a
+        title="Cheng2003.pdf" class="internal-link"
+        href="resolveuid/ac368855518787b7cc5f430a91127168#Cheng2003">Cheng2003.pdf</a>
+    and <a title="Steer torque data from Cheng et al. 2003"
+        class="internal-link"
+        href="resolveuid/9214550a56ec25f3e94067965b6ee054#Cheng2003">data.zip</a></p>
+
+<p><a title="References" class="internal-link"
+    href="resolveuid/e3329e0d28ba360667c5fd57947c8441#Astrom2005">Astrom2005</a></p>
+<p>Åström et al. shows a steer torque measurement system constructed for the
+UCSB instrumented bicycle but with little extra information. They use a linear
+force transducer of some sort mounted on the handlebars.</p>
+<img class="image-inline captioned"
+    src="resolveuid/84725eb403fffe4a7a8bb44731822875/image_preview" alt="UCSB
+    Steer Torque Measurement" />
+
+<p><a title="References" class="internal-link"
+    href="resolveuid/e3329e0d28ba360667c5fd57947c8441#Cain2010">Cain2010</a></p>
+<p>Stephen Cain built an instrumented bicycle with a steer torque measuring
+device and studied steady turns.</p>
+<h3 align="left">Related topics from STV Discussion List</h3>
+<ul>
+<li>
+<a class="external-link"
+    href="http://groups.google.com/group/stvdy/browse_thread/thread/863bd2761a8ee3de">Welcome
+    and a steer torque question</a>
+</li>
+<li>
+<a class="external-link"
+    href="http://groups.google.com/group/stvdy/browse_thread/thread/e82893d10cbb1d46">Steering
+    torque measurement</a>
+</li>
+<li>
+<a class="external-link"
+    href="http://groups.google.com/group/stvdy/browse_thread/thread/4ae6ebb1d05ba299/">More
+    questions on bicycle steer torque measurements</a>
+</li>
+</ul>
+
+<h2>Initial Design Ideas</h2>
+<hr />
+<p>We are planning on measuring the steer torque the rider applies to control a
+bicycle. This will be used for human control model identification and for use
+in the necessary feedback loops required control the riderless bicycle.
+Measuring the steer torque is not trivial. This is because various models
+predict torques ranging in the 0-2 Nm (0-1.5 ft lbs) range with signal
+variations and reversals requiring +/- 0.01 Nm (0.01 ft lbs) in measurement
+accuracy. The range and accuracy are easily measured with modern torque
+sensors, but the fact that large moments can be applied to the fork and
+handlebars by the ground and/or rider introduces the problem of crosstalk. The
+forces and moments applied to the fork will corrupt the relatively small torque
+measurements as they can be hundreds of times larger in magnitude. With this in
+mind, we are trying to come up with a way to isolate the torque measurement to
+eliminate or minimize the crosstalk and get good, noiseless, accurate readings.
+The following are some basic designs we are working with:</p>
+<h3>1. Åström Design</h3>
+<p>This is a sketch of what was designed for the UCSB instrumented bicycle and
+presented in a <a title="References" class="internal-link"
+    href="../references#Astrom2005">2005 paper by Karl Åström et al</a>. It
+uses an off-the-shelf axial load cell mounted between a floating handlebar and
+a bar extending from the steer tube. This seems to be a good design, but it
+would be nice to eliminate the handlebar bearings and the rod ends.</p>
+<p><a title="Astrom Design" class="internal-link"
+    href="../instrumented-and-actuated-bicycle/photos/P1040070.JPG"><img
+    class="image-inline captioned"
+    src="resolveuid/c0d97223989ee68a3374677e0e91c112/image_preview" alt="Astrom
+    Design" /></a></p>
+<p>My professor, <a
+    class="external-link"
+    href="http://eng.odu.edu/aerospace/aefaculty/dlandman.shtml">Drew
+    Landman</a>, from Virginia who I worked with designed force balances for
+wind tunnel testing at the <a class="external-link"
+    href="http://www.nasa.gov/vision/earth/improvingflight/fst_overview.html">LFST</a>
+suggested a <a title="Steer torque measurement with flexures"
+    class="internal-link"
+    href="resolveuid/dd2f3c8a73e2229352bbc0320e6d4df5">redesign that eliminates
+    the bearings and replaces them with flexures</a>.</p>
+
+<h3>2. Weir Design</h3>
+<p align="left">David Weir designed a motorcycle steer torque measurement
+system in his <a title="References" class="internal-link"
+    href="../references#Weir1979a">1979 technical repor</a>t that also floats
+the handlebars on bearings but uses an off-the-shelf torque sensor instead. The
+sketch shows the basic concept. The handlebars are floating on bearings and the
+torque sensor connects the handlebars to the steer tube. He claimed that the
+design lacked low range resolution. Motorcycles can experience torques that are
+as high as 50 Nm according to some models.</p>
+<p align="center"><a title="Weir Design" class="internal-link"
+    href="../instrumented-and-actuated-bicycle/photos/P1040072.JPG"><img
+    class="image-inline captioned"
+    src="resolveuid/aeecb1a6ff643de9ba50f3bd041bf2de/image_preview" alt="Weir
+    Design" /></a></p>
+
+<h3>3. Internal Stem Design</h3>
+<p>This is a design that we came up with when preparing our
+abstract on the topic. It is fundamentally the same as the Åström design but
+includes flexure elements instead of rod ends and is a bit smaller in
+scale.</p>
+<p align="center"><a title="Internal Stem Design" class="internal-link"
+    href="../instrumented-and-actuated-bicycle/photos/P1040069.JPG"><img
+    class="image-inline"
+    src="resolveuid/66607943aed83c431d32574f6c71a3bd/image_preview"
+    alt="Internal Stem Design" /></a><img class="image-inline"
+src="resolveuid/3c72eeac7942df92ace40db550c5102b/image_preview"
+alt="steerTorque.png" /></p>
+
+<h3>4. Double Steer Design</h3>
+<p>This design separates the handlebar and stem's rotation axis from the steer
+tube and fork's rotation axis much the way many long wheel base recumbents or
+bakfiets are designed. The load cell is then place on the connecting rod. This
+design is is prone to slop in the steer mechanism.</p>
+<p align="center"><a title="Double Steer Design" class="internal-link"
+    href="../instrumented-and-actuated-bicycle/photos/P1040073.JPG"><img
+    class="image-inline"
+    src="resolveuid/a116bf55e754b4722dc10dad3d25d266/image_preview" alt="Double
+    Steer Design" /></a></p>
+
+<h3>5. Bearing-less design</h3>
+<p>Luke came up with this design and was able to eliminate the need for
+bearings. Two arms are clamped to the steer tube and a load cell is placed
+between the arms. The difference in this is that not all of the torque is
+transferred through the load cell, but maybe enough is that we can measure
+it.</p>
+<p><a title="Bearing-less Design" class="internal-link"
+    href="../instrumented-and-actuated-bicycle/photos/P1040074.JPG"><img
+    class="image-inline"
+    src="resolveuid/2fb828ed476c7be1652cb1733c0c1acf/image_preview"
+    alt="Bearing-less Design" /></a></p>
+
+<h2>Forces on the steer tube</h2>
+<p>Ideally, we'd like to slap a strain gauge on the steer tube to measure the
+shear strain and get a good torque reading but this isn't so easily done. The
+bicycle steer tube has various other forces acting on it. For the most basic
+case a the ground contact force at the front wheel puts the fork into bending
+and compression. Likewise the person can apply forces to the handlbars which
+also put the steer tube into bending and compression. It turns out that the
+moments in the steer tube can be as high as 200 times the steer torques we are
+trying to measure.</p>
+<a title="Bicycle Forces" class="internal-link"
+    href="resolveuid/8cd3b8787503b6d430324632879251e3"><img class="image-inline
+    captioned image-inline"
+    src="resolveuid/c1b056efbeda1b2a4d12746e58d23021/image_preview" alt="Basic
+    Bicycle Forces" /></a>
+<p>There are ways to apply strain gauges to a bar in torsion that would
+theorectically cancel all of the axial and bending strain components. Both
+bending moments and axial forces only create strain in the axial direction and
+shear and torsion create strain in the direction normal to axial. The following
+comes from Beckwith and Margoni's Mechanical Measurements and shows two
+possible strain gage bridge configurations that can reduce or eliminate strains
+not due to torsion.</p>
+<img class="image-inline captioned"
+src="resolveuid/bf57e0090435ce8abd001875e8048c59/image_preview" alt="Strain
+Bridge Configuration for Torsion" />
+<p>L seems to be a good choice for the steer torque measurement, but in reality
+it is impossible to align strain gages perfectly. This can introduce
+cross-sensitivity or cross talk. If the cross talk strains due to the bending
+moments are only 1% of the of the total strain due to the moments, that can
+still corrupt the steer torque measurement. With this in mind we decided to
+look into what the forces in the steer tube actually look like.</p>
+<p>We modeled the fork as a basic beam supported by the headset bearings
+(points C and D) and the forces/moments due to the ground reaction force and
+force applied to the handlebars were calculated.</p>
+<img class="image-inline captioned image-inline"
+src="resolveuid/90e67bba258d9fc9a10c52b7f9e57252/image_preview" alt="Fork
+Modeled as a Beam" />
+<p>The following graphs show what the shear and bending moment diagrams for
+various loadings look like both from the side and the front of the bike.</p>
+<table class="invisible">
+<tbody>
+<tr>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/151b3c8243fd5d2c731a8eae91188c5a/image_preview" alt="mvdiagram01.png" /></td>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/3793383a568fdd2ce08de994c53ed178/image_preview" alt="mvdiagram02.png" /></td>
+</tr>
+<tr>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/a140ee7e5f4d70c0b44eadb5e6e0b4be/image_preview" alt="mvdiagram03.png" /></td>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/c599592a90c32dba06aef0c91ce42dcb/image_preview" alt="mvdiagram04.png" /></td>
+</tr>
+<tr>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/0ca7e86d028868a832aeef90eba9bddf/image_preview" alt="mvdiagram05.png" /></td>
+<td><img class="image-inline captioned" src="resolveuid/2af4768d559082a648ccc51c3bb08ebf/image_preview" alt="mvdiagram06.png" />&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>These graphs show that the bending moments and shear stresses
+can be of much larger magnitude than the steer torques, so cross talk is a
+major concern. These graphs also show that it if no loads are placed on the
+handlebars the entire portion of the steer tube/stem above the headset has no
+bending moments and no shear stress. This is the ideal place for a torque
+sensor, if we can eliminate the transfer of forces applied to the handlebars to
+the steer tube.</p>
+<p>This leads us to a design idea that isolates the steer torque
+sensor from the handlebar and fork forces. The basic design idea is sketched
+below. It includes a separate "headset" for the handlebars that take up any
+handlebar forces. The handlebar is connected to the steer torque sensor via a
+zero backlash universal joint so no moments can be transferred to the sensor.
+The steer motor will need to be mounted above the u-joint so torques from the
+rider or the motor can be measured. We are looking at a <a
+    class="external-link" href="http://www.futek.com/">Futek</a> Reaction
+Torque sensor that has a max torque of either <a class="external-link"
+    href="http://www.futek.com/product.aspx?stock=FSH02594">6 Nm</a> or <a
+    class="external-link"
+    href="http://www.futek.com/product.aspx?stock=FSH02595">12 Nm</a> but are
+unsure what the best range and accuracy for these measurements are since there
+seems to be no public data from bicycle steer torque measurements.</p>
+<img class="image-inline captioned image-inline" src="resolveuid/c599ed60206a4dc53ca4bfb385e29e58/image_preview" alt="Torque Measurement Design" />
+<h2 align="left">Torque Wrench Experiments</h2>
+<hr />
+<p>Following Cheng's lead, we decided to do some experiments with
+a accurate torque wrench to see get an idea of maximum torques. We made a
+little attachment to the steer tube that allowed easy connection of various
+torque wrenches. A helmet camera was mounted such that it could view the torque
+wrench, handlebars and speedometer relative to the bicycle frame. The torque
+wrench had a range from 0 to 8.5 Nm and a +/- 2% accuracy of full scale (+/-
+0.17 Nm). The speed was maintained by an electric hub motor (i.e. no
+pedaling).</p>
+<table class="plain">
+<tbody>
+<tr>
+<td><img class="image-inline captioned" src="resolveuid/a5dd3f34a3fdab005d47044cc79ec415/image_mini" alt="Torque wrench mount" /></td>
+<td><img class="image-inline captioned" src="resolveuid/cf4e4b895604aa8a0708cd0da2f9dfa8/image_mini" alt="Torque wrench face" /></td>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/ceef82f5a04518123a04fa71d77092af/image_mini" alt="Torque camera" /><br /></td>
+</tr>
+</tbody>
+</table>
+<p align="left">The <a title="data.txt" class="internal-link"
+    href="resolveuid/881a2e6a7f894ca6c3c9318cc5ebc921">data file</a> includes
+the run number that corresponds to the video number, the rider's estimate of
+the speed after the run in miles per hour, the maximum reading from the torque
+needle after the run in inch-lbs, the rider's name, the maneuver, the minimum
+speed seen on the video footage in miles per hour, the maximum speed seen on
+the video footage in miles per hour, the maximum torque seen on the video
+footage in inch-lbs, the minimum torque seen on the video footage in
+newton-meters, and the rotation sense for each run (+ for clockwise [right
+turn] and - for counter clockwise [left turn]) . There were seven different
+maneuvers: straight into tracking a half circle (radius = 6 meters and 10
+meters), tracking a straight line, straight to a 2 meter lane change, slalom
+with 3 meter spacing, steady circle tracking (radius = 5 and 10 meters). All of
+the videos and data can be downloaded <a class="external-link"
+    href="http://www.archive.org/details/BicycleSteerTorqueExperiment01">here</a>.
+The results (<a title="Torque Wrench R Code" class="internal-link"
+    href="resolveuid/0d0ff8f04173b50c5ff52b572f7232e6">R code</a>), are shown
+in the following graphs:</p>
+<table class="plain">
+<tbody>
+<tr>
+<td><img class="image-inline captioned" src="resolveuid/a41a4da65605e8d6c98e1cf41c3b19f6/image_preview" alt="torqueHist.png" />&nbsp;</td>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/0ad457a926630a28fffe4933f564108d/image_preview" alt="torqueSpeed.png" /></td>
+</tr>
+<tr>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/eeb33b106268eb3610800cb1fcb128bd/image_preview" alt="Circle5.png" /></td>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/1cb55905c0c7d6e0a3ca5418ab6332b1/image_preview" alt="Circle10.png" /></td>
+<td><img class="image-inline captioned" src="resolveuid/ffa24c1a665ac8069176eb74b8980489/image_preview" alt="HalfCircle6.png" />&nbsp;</td>
+</tr>
+<tr>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/7dc9751d669c72fbfd0325e3786d71c5/image_preview" alt="HalfCircle10.png" /></td>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/687dfb8a8784bd097f270c9dde6d5b30/image_preview" alt="LaneChange.png" /></td>
+</tr>
+<tr>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/c15cd7b01dd093ba1c202abdaead757e/image_preview" alt="LineTrack.png" /></td>
+<td>&nbsp;<img class="image-inline captioned" src="resolveuid/02c0ffe9fe730b129c557f4852824b3c/image_preview" alt="Slalom.png" /></td>
+</tr>
+</tbody>
+</table>
+<p align="left">The primary goal was to determine the maximum torques we will
+see for the types of maneuvers we are interested in. The histograms shows that
+we never recorded any torques higher than 5 Nm. The following shows the max and
+min torque values for different maneuvers:</p>
+<div align="left">&nbsp;</div>
+<table class="plain">
+<thead>
+<tr>
+<th align="left">Maneuver</th>
+<th align="left">Max Torque<br /></th>
+<th>Min Torque<br /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Steady Circle (r = 10m)<br /></td>
+<td>3.4 <br /></td>
+<td>-2.4 <br /></td>
+</tr>
+<tr>
+<td>Steady Circle (r = 5m) <br /></td>
+<td>2.4 <br /></td>
+<td>-2.2 <br /></td>
+</tr>
+<tr>
+<td>Half Circle (r = 10m) <br /></td>
+<td>3.8 <br /></td>
+<td>-3.2 <br /></td>
+</tr>
+<tr>
+<td>Half Circle (r = 6m) <br /></td>
+<td>3.4 <br /></td>
+<td>-5.0 <br /></td>
+</tr>
+<tr>
+<td>Lane Change (2m) <br /></td>
+<td>2.9 <br /></td>
+<td>-2.6 <br /></td>
+</tr>
+<tr>
+<td>Line Tracking <br /></td>
+<td>2.6 <br /></td>
+<td>-3.4 <br /></td>
+</tr>
+<tr>
+<td>Slalom <br /></td>
+<td>4.5 <br /></td>
+<td>-4.8 <br /></td>
+</tr>
+</tbody>
+</table>
+<p>There seems to be little to no speed dependency on the max and min torque values.</p>
+</div>
+<h2>Final Steer Assembly Design</h2>
+<hr />
+<img class="image-inline captioned"
+src="resolveuid/2b03ff99ae75489ee433058e64814f7f/image_large" alt="Final Steer
+Torque Measurement Design" />
+
+<h2>Steer Dynamics</h2>
+<p>This design is setup to eliminate anything but the torque from being
+measured, but their is a little more information needed to get to the actual rider applied
+steer torque. The torque we measure is the torque in the steer column, \(T_S\).
+Their is a relationship from \(T_S\) to \(T_\delta\) that requires one to know
+the friction in the lower and upper bearings (this is potentially both viscous
+and coulomb), the inertia of the handlebar/fork assembly, the inertia of
+the portion above and below the torque sensor, and potentially the backlash
+characteristics of the slip clutch/torque limiter.</p>
+
+<h3>Inertia</h3>
+<p>We used our techniques for measuring the mass, center of mass and inertia of
+the bicycle for obtaining the inertial characteristics of the handlbar and the
+fork separately. The torque sensor was included with the handlebar.</p>
+
+<h3>
+
+<p>The first thing we did was to try to characterize the friction in the
+bearings. We did this by mounting the bicycle frame such that the steer axis
+was vertical, the wheel was off the ground, and the bicycle frame was made very
+rigid. Secondly, we attached two springs to the handlebars such that the force
+from the springs acted on a lever arm relative to the steer axis. This allowed
+us to perturb the handlebars and let the vibrations damp out. We recorded data
+from the steer potentiometer, steer rate gyro and the torque sensor during
+these perturbations. For now, we simply used the steer angle signals to
+estimate both the viscous and coulomb friction from the two bearing
+sets.</p>
+
+<p>Once the steer friction and the inertial characteristics are known the steer
+torque applied by the rider can be formulated based on a free body diagram of
+the upper part of the handlebar/fork assembly. The time derivative of the
+angular momentum of the handlebar about its center of mass is equal to the sum
+of the torques acting on it. During a run, the torques acting on the body made
+up of the handlebars and the torque sensor are the friction in the upper
+bearing, \(T_F\), the measured steer column torque, \(T_S\), and the rider
+applied steer torque, \(T_\delta\).</p>
+<p>$$\sum{\bar{T}} = \left[\begin{array}{c}0\\0\\T_\delta - T_S - T_F\end{array}\right]$$</p>
+<p>The derivative of the angular momentum of the handlebar is:</p>
+<p>$$\dot{\bar{H}} = I\bar{\alpha} + \bar{\omega} \times \bar{H}$$</p>
+<p>Being that the torques only appear in the 3 component, we can formulate the equation of motion as such:</p>
+<p>$$T_\delta = T_S + T_F + I_{22}\omega_1\omega_2 + I_{31}\alpha_1 + I_{33}\alpha_3 - \omega_2(I_{11}\omega_1+I_{31}\omega_3)$$</p>
+<dl>
+    <dt>\(T_\delta\)</dt>
+    <dd>Steer torque applied by the rider.&nbsp;</dd>
+    <dt>\(T_S\)&nbsp;</dt>
+    <dd>Measured torque in the steer column, between the two bearing
+    sets.&nbsp;</dd>
+    <dt>\(T_F\)&nbsp;</dt>
+    <dd>The friction in the upper bearing. \(T_F = c\dot{\delta} +
+    asgn(\dot{\delta})\)&nbsp;</dd>
+    <dt>\(\bar{\omega}\)&nbsp;</dt>
+    <dd>The body fixed rate of of the handlebar. The 3 component is aligned
+    with the steer axis (positive is down), the 1 component is perpendicular to
+    the steer axis and point forward, and the 2 component follows from the
+    right hand rule (perpendicular to the steer axis, pointing to the
+    right).</dd>
+    <dt>\(\bar{\alpha}\)&nbsp;</dt>
+    <dd>The body fixed angular accelerations of the handlebar.&nbsp;</dd>
+    <dt>\(I\)&nbsp;</dt>
+    <dd>The inertia tensor of the handlebar about its center of mass and
+    aligned with the same coordinate system as the angular velocity.&nbsp;</dd>
+</dl>
+
+<h2>Steer dynamics</h2>
+<p>In the Whipple bicycle model, the steering column is modeled as a simple
+frictionless revolute joint. In practice the dynamic behavior of this joint is
+more complex. For example, viscous damping and Coulomb friction may be present
+due to air damping and the friction caused by the bearings. Furthermore, the
+slip clutch we chose exhibits some backlash. These described effects and others
+can cause additional resistance to steering torque. For rider input
+identification, it is important to separate the system dynamics from the rider
+action. Therefore, the goal of this analysis was to quantify the dynamic
+properties of the steering column joint.</p>
+
+<h3>Experiment</h3>
+<p>A simple experiment was set up to investigate the dynamic properties of the
+steering column. The bicycle was mounted such that the steering column was
+vertical, the wheel did not touch the ground and the flexibility of the bicycle
+frame was minimized. Two springs were attached to the handlebars to create a
+known steering torque input, effectively creating a simple spring, mass and
+damper system. The small angle approximation of the torque caused by the two
+springs is given by:</p>
+
+$$T_k = 2ek(\delta-\delta_0)$$
+
+<p>Where \(e\) represents the length of the moment arm, \(k\) represents the
+spring stiffness and \(\delta\) represents the steer angle. The steer angle,
+\(\delta\), was measured by using a potentiometer. The steer rate was measured
+directly with a rate gyro but the steering rate can also be obtained
+by finite differencing the steer angle. The rear frame of the bike was
+fixed to the external world and was assumed to not move at all. The measured
+parameters of the set up are shown in table \ref{table:measureparms}. Figure
+\ref{fig:example} shows a typical measurement. Here the steer angle is first set
+into a unstable position, before it is released at $t=\approx0.8$ [s]. The
+steer oscilates until it reaches its equilibrium position. 6 Measurements are
+peformed, consisting of 3 left and 3 right releases. A suitable datarange is
+selected by making use of the energy aproximation which corresponds to the
+desired small angle of 0.1 rad in combination with a fixed number of sucseeding
+datapoints.</p>
+
+<h4>Calculating spring stiffnes</h4>
+<p>The spring stiffness was determined by two methods. The first method was by
+suspending the spring vertically and measuring its length before and after a
+known amount of mass was added. The second method was by measuring its period
+of oscillation. The following spring stiffness is obtained.</p>
+
+$$k = \frac{\Delta F}{\Delta l} = \frac{g\Delta m}{l_2-l_1} = 912.77 \pm 66 \ \
+\textrm{[N/m]}$$
+
+<h4>Data selection</h4>
+<p>A suitable range of data was chosen based on the estimated energy of the
+system.  The total energy of the system decreased due to the dissipation caused
+by viscous damping and Coulomb friction. When the energy level exceeded a
+certain threshold (corresponding with the potential energy equal to 0.1 rad)
+the first data point was selected. Secondly, a fixed number of succeeding
+data-points was selected to complete the data range. The selection method is
+shown in figure \ref{fig:energysel} and the resulting dataset for all six
+measurements is shown in figure \ref{fig:deltasel}.</p>
+
+<table border=1>
+  <tr>
+    <td>Symbol</td>
+    <td>Value</td>
+    <td>Units</td>
+    <td>Description</td>
+  </tr>
+  <tr>
+    <td>\(l_1\)</td>
+    <td>\(0.165\pm0.002\)</td>
+    <td>[m]</td>
+    <td>spring length 1</td>
+  </tr>
+  <tr>
+    <td>\(l_2\)</td>
+    <td>\(0.204\pm0.002\)</td>
+    <td>[m]</td>
+    <td>spring length 2</td>
+  </tr>
+  <tr>
+    <td>\(\Delta m\)</td>
+    <td>\(3.628\)</td>
+    <td>[kg]</td>
+    <td>added mass</td>
+  </tr>
+  <tr>
+    <td>$e$</td>
+    <td>$0.231\pm0.003$</td>
+    <td>[m]</td>
+    <td>moment arm</td>
+</tr>
+</table>
+
+		\begin{figure}
+			\centering
+				\includegraphics{images/example}
+				\caption{}
+				\label{fig:example}
+		\end{figure}
+
+		\begin{figure}
+			\centering
+				\includegraphics{images/energysel}
+				\caption{Datarange selection based on estimated energy. The horizontal line represents the energy tresshold. The vertical lines represent the crossings of the tresshold values, which will be used as the first datapoint. Secondly a fixed range of sucseeding datapoint is selected to complete the selection.}
+				\label{fig:energysel}
+		\end{figure}
+
+		\begin{figure}
+			\centering
+				\includegraphics{images/deltasel}
+				\caption{Selected datasets}
+				\label{fig:deltasel}
+		\end{figure}
+
+<h3>Model</h3>
+<p>The dynamics of the font axis are modeled as a spring/mass/damper system
+with added Coulomb friction:</p>
+
+$$\ddot{\delta} + 2\omega_0\zeta\dot{\delta} + \omega_0^2\delta =\tilde{F_c}$$
+
+<p>Where the Coulomb friction \(\tilde{F_c} = \frac{F_c}{I_{\delta\delta}}\) is
+modeled as:</p>
+
+$$\tilde{F}_c &= \left\{\begin{array}{rl}A & \text{if } \dot{\delta} < 0,\\0 & \text{if } \dot{\delta} = 0 ,\\-A & \text{if } \dot{\delta} > 0.\end{array} \right.$$
+
+<p>The Coulomb friction introduces an non-linear term in the differential
+equations. A time series solution of the non linear equations is obtained using
+the Matlab ODE45 solver. The unknown parameters $\zeta$, $\omega_0$ and $A$ are
+obtained from the experimental data by using parameter estiamation techniques.
+Here a Levenberg Marquad algorithm is used for estimating the parameters.</p>
+
+<h3>Results</h3>
+<p>The identification algorithm is repeated for 6 measurements. The resulting
+parameters are shown in the table below:</p>
+
+				\begin{center}
+				\begin{tabular}{cccc}
+				\toprule
+				$n$ & $\omega_0$ & $\zeta$ & $A$ \\
+				\midrule
+				1  & 27.7347  &  0.0455  &  0.9963\\
+				2	& 27.7179  &  0.0493  &  0.7559\\
+				3	& 27.7228  &  0.0539  &  0.7166\\
+				4	& 27.6573  &  0.0505  &  0.7078\\
+				5	& 27.5571  &  0.0307  &  1.6129\\
+				6	& 27.5462  &  0.0533  &  0.5515\\
+				\bottomrule
+				\end{tabular}
+				\end{center}
+
+<p>The resulting fits are shown in figure \ref{fig:fitting}. Since both the
+eigenfrequency and stifness are known, a estimate of the mass moment of inertia
+can be made:</p>
+
+$$\omega_0^2 = \frac{2ke}{I_{\delta\delta}}  \ \Rightarrow \  I_{\delta\delta}
+= \frac{2ke}{\omega_0^2} = 0.55\pm0.04 \ \textrm{[kg/m$^2$]}$$
+
+\begin{figure}
+  \centering
+    \includegraphics{images/fitting}
+    \caption{}
+    \label{fig:fitting}
+\end{figure}
+
+<h3>Application</h3>
+<p>To get an idea of the relative influence of the damping on the steering
+torque measurements, the damping model is applied to some of the actual
+measurements.  First the damping equations are rewritten to obtain the
+damping torque $F_d$.</p>
+
+$$F_d =  {F_c}  -  2\omega_0\zeta I_{\delta\delta} \dot{\delta}$$
+
+<p>The damping torque is then plotted together with the measured torque to get an
+idea of the relative amplitude. The result is shown in figure
+\ref{fig:torque}</p>
+
+		\begin{figure}
+			\centering
+				\includegraphics{images/torque}
+				\caption{}
+				\label{fig:torque}
+		\end{figure}
+
+<h3>Discussion</h3>
+<ul>
+    <li>Eigenfrequency very consistent</li>
+    <li>Both the Coulomb friction and viscous damping show relatively a lot of
+    variation</li>
+    <li>System seems to be symmetric around \(\delta_0\).</li>
+    <li>Model fits amplitude very well</li>
+    <li>Model has trouble matching the phase.</li>
+</ul>
+
+<h3>Conclusion</h3>
+<ul>
+    <li>Total amount of friction seems to be significant and may not be
+    omitted.</li>
+		<li>Friction is consists of viscous damping and Coulomb friction.ous
+    damping and Coulomb friction.</li>
+</ul>
+
+<h3>Future work</h3>
+<ul>
+  <li>Figure out backlash principle and model it mathematically, incorporate
+  there results in the bike model.</li>
+  <li>Apply friction model combined with separate inertia models to obtain
+  rider steering torque.</li>
+</ul>
+
+<h3>Some additional analysis</h3>
+<p>Figure \ref{fig:steer1} and \ref{fig:steer2} show some additional analysis
+of the steer dynamics.</p>
+
+		\begin{figure}
+			\centering
+				\includegraphics[width=16cm]{images/torquemeasurement.jpg}
+				\caption{Torque measurement on uniform bar example}
+				\label{fig:steer1}
+		\end{figure}
+		\begin{figure}
+			\centering
+				\includegraphics[width=16cm]{images/steeringequations.jpg}
+				\caption{Equations of motion governing the steering dynamics}
+				\label{fig:steer2}
+		\end{figure}
+
+$$I_{22} \\left(- \\operatorname{wb1}\\left(t\\right)
+\\operatorname{sin}\\left(\\operatorname{delta}\\left(t\\right)\\right) +
+\\operatorname{wb2}\\left(t\\right)
+\\operatorname{cos}\\left(\\operatorname{delta}\\left(t\\right)\\right)\\right)
+\\left(\\operatorname{wb1}\\left(t\\right)
+\\operatorname{cos}\\left(\\operatorname{delta}\\left(t\\right)\\right) +
+\\operatorname{wb2}\\left(t\\right)
+\\operatorname{sin}\\left(\\operatorname{delta}\\left(t\\right)\\right)\\right)
++ I_{31} \\left(- \\left(- \\operatorname{wb3}\\left(t\\right) +
+\\operatorname{wh3}\\left(t\\right)\\right) \\operatorname{wb1}\\left(t\\right)
+\\operatorname{sin}\\left(\\operatorname{delta}\\left(t\\right)\\right) +
+\\left(- \\operatorname{wb3}\\left(t\\right) +
+\\operatorname{wh3}\\left(t\\right)\\right) \\operatorname{wb2}\\left(t\\right)
+\\operatorname{cos}\\left(\\operatorname{delta}\\left(t\\right)\\right) +
+\\operatorname{sin}\\left(\\operatorname{delta}\\left(t\\right)\\right)
+\\frac{\\partial}{\\partial t} \\operatorname{wb2}\\left(t\\right) +
+\\operatorname{cos}\\left(\\operatorname{delta}\\left(t\\right)\\right)
+\\frac{\\partial}{\\partial t} \\operatorname{wb1}\\left(t\\right)\\right) +
+I_{33} \\frac{\\partial}{\\partial t} \\operatorname{wh3}\\left(t\\right) + c
+\\left(- \\operatorname{wb3}\\left(t\\right) +
+\\operatorname{wh3}\\left(t\\right)\\right) + d mH \\left(d \\left(-
+\\operatorname{wb1}\\left(t\\right)
+\\operatorname{sin}\\left(\\operatorname{delta}\\left(t\\right)\\right) +
+\\operatorname{wb2}\\left(t\\right)
+\\operatorname{cos}\\left(\\operatorname{delta}\\left(t\\right)\\right)\\right)
+\\left(\\operatorname{wb1}\\left(t\\right)
+\\operatorname{cos}\\left(\\operatorname{delta}\\left(t\\right)\\right) +
+\\operatorname{wb2}\\left(t\\right)
+\\operatorname{sin}\\left(\\operatorname{delta}\\left(t\\right)\\right)\\right)
++ d \\frac{\\partial}{\\partial t} \\operatorname{wh3}\\left(t\\right)\\right)
+- d mH \\left(- ds_{1} \\operatorname{wb2}^{2}\\left(t\\right) + ds_{2}
+\\frac{\\partial}{\\partial t} \\operatorname{wb2}\\left(t\\right) -
+\\left(ds_{1} \\operatorname{wb3}\\left(t\\right) - ds_{2}
+\\operatorname{wb1}\\left(t\\right)\\right) \\operatorname{wb3}\\left(t\\right)
++ \\operatorname{av1}\\left(t\\right)\\right)
+\\operatorname{sin}\\left(\\operatorname{delta}\\left(t\\right)\\right) + d mH
+\\left(ds_{1} \\operatorname{wb1}\\left(t\\right)
+\\operatorname{wb2}\\left(t\\right) + ds_{1} \\frac{\\partial}{\\partial t}
+\\operatorname{wb3}\\left(t\\right) + ds_{2}
+\\operatorname{wb2}\\left(t\\right) \\operatorname{wb3}\\left(t\\right) -
+ds_{2} \\frac{\\partial}{\\partial t} \\operatorname{wb1}\\left(t\\right) +
+\\operatorname{av2}\\left(t\\right)\\right)
+\\operatorname{cos}\\left(\\operatorname{delta}\\left(t\\right)\\right) -
+\\left(I_{11} \\left(\\operatorname{wb1}\\left(t\\right)
+\\operatorname{cos}\\left(\\operatorname{delta}\\left(t\\right)\\right) +
+\\operatorname{wb2}\\left(t\\right)
+\\operatorname{sin}\\left(\\operatorname{delta}\\left(t\\right)\\right)\\right)
++ I_{31} \\operatorname{wh3}\\left(t\\right)\\right) \\left(-
+\\operatorname{wb1}\\left(t\\right)
+\\operatorname{sin}\\left(\\operatorname{delta}\\left(t\\right)\\right) +
+\\operatorname{wb2}\\left(t\\right)
+\\operatorname{cos}\\left(\\operatorname{delta}\\left(t\\right)\\right)\\right)
++ \\operatorname{Tf}\\left(t\\right) + \\operatorname{Tm}\\left(t\\right)$$

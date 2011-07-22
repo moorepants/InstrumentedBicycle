@@ -1,0 +1,105 @@
+\documentclass[]{article}
+%\usepackage[landscape]{geometry}
+\usepackage{amssymb,amsmath}
+
+\begin{document}
+The angular rate of the bicycle frame, $B$, is measured.
+\begin{equation}
+  ^N\bar{\omega}^B = w_{b1}\hat{b}_1 + w_{b2}\hat{b}_2 + w_{b3}\hat{b}_3
+\end{equation}
+
+The handlebar, $H$, is connected to the bicycle frame, $B$, by a revolute joint
+that turns through $\delta$, the steering angle and we measure the angular rate
+of the handlebar about the steer axis directly. The angular rate of the
+handlebar is:
+\begin{equation}
+  ^N\bar{\omega}^H = (w_{b1}\cos(\delta) + w_{b2}\sin(\delta))\hat{h}_1 +
+    (-w_{b1}\sin(\delta) + w_{b2}\cos(\delta))\hat{h}_2 + w_{h3}\hat{h}_3
+\end{equation}
+
+We measure the acceleration of a point, $v$, on the bicycle frame.
+\begin{equation}
+  ^N\bar{a}^v = a_{v1}\hat{b}_1 + a_{v2}\hat{b}_2 + a_{v3}\hat{b}_3
+\end{equation}
+
+We also know the location of the point, $v$, relative to a point, $s$ on the
+steering axis.
+\begin{equation}
+    ^v\bar{r}^s = d_{s1}\hat{b}_1 + d_{s3}\hat{b}_3
+\end{equation}
+
+The location of the center of mass of the handlebar, $h_o$, is also known
+relative to point $s$.
+\begin{equation}
+    ^s\bar{r}^h_o = d\hat{h}_1
+\end{equation}
+
+$^N\bar{a}^{h_o}$ can be calculated using the two point thereom for
+acceleration twice staring at the point $v$.
+
+The angular momentum of the handlebar about its center of mass is:
+\begin{equation}
+    ^N\bar{H}^{H/h_o} = I_H \cdot ^N\bar{\omega}^H
+\end{equation}
+
+Euler's equation for angular momentum of the handlebar about point $s$ can be
+written as so:
+\begin{equation}
+    \sum \bar{T}_H = ^N\dot{\bar{H}}^{H/h_o} + ^s\bar{r}^h_o \times m_H
+    \ ^N\bar{a}^s
+\end{equation}
+
+The only torques applied to the handlebar that we are interested in act about the steer axis.
+\begin{equation}
+    \sum T_{H3} = T_\delta - T_F - T_S - c(w_{h3} - w_{b3})
+\end{equation}
+
+Looking at only the 3 component of Euler's equation gives this:
+\begin{equation}
+    T_\delta - T_F - T_S - c(w_{h3} - w_{b3}) = (^N\dot{\bar{H}}^{H/h_o} + ^s\bar{r}^h_o \times m_H
+    \ ^N\bar{a}^s)
+ \cdot \hat{h}_3
+\end{equation}
+
+Solving for $T_\delta$ gives:
+\begin{align}
+  T_{\delta} = &
+  I_{H33} \dot{w}_{h3} + \\\notag
+  %
+  & (I_{H11} (w_{b1}\cos(\delta) +
+  w_{b2}\sin(\delta)) +
+  I_{H31} w_{h3}) (-w_{b1}\sin(\delta) +
+  w_{b2}\cos(\delta)) + \\\notag
+  %
+  & I_{H22} (- w_{b1} \sin(\delta) +
+  w_{b2}\cos(\delta))
+  (w_{b1}\cos(\delta) +
+  w_{b2}\sin(\delta)) + \\\notag
+  %
+  & I_{H31} (- (- w_{b3} + w_{h3}) w_{b1}
+  \sin(\delta) +
+  (-w_{b3} + w_{h3})
+  w_{b2}\cos(\delta) +
+  \sin(\delta)\dot{w}_{b2} +
+  \cos(\delta)\dot{w}_{b1}) +\\\notag
+  %
+  & d m_H (d (-w_{b1}\sin(\delta) + w_{b2}
+  \cos(\delta))(w_{b1}\cos(\delta) +
+  w_{b2}\sin(\delta)) +
+  d \dot{w}_{h3}) - \\\notag
+  %
+  & d m_H (- d_{s1} w_{b2}^{2} + d_{s2}
+  \dot{w}_{b2} - (d_{s1}
+  w_{b3} - d_{s2}
+  w_{b1}) w_{b3} +
+  a_{v1})
+  \sin(\delta) +\\\notag
+  %
+  & d m_H(d_{s1} w_{b1}w_{b2} +
+  d_{s1} \dot{w}_{b3} +
+  d_{s2} w_{b2} w_{b3} - d_{s2} \dot{w}_{b1} +
+  a_{v2})\cos(\delta) - \\\notag
+  %
+  & c (- w_{b3} + w_{h3}) + T_F + T_s
+\end{align}
+\end{document}

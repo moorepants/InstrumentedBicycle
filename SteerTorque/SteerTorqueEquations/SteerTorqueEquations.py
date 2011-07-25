@@ -77,8 +77,7 @@ Hdot = H_H_N_ho.dt(N)
 # euler's equation about an arbitrary point, s
 sumT = Hdot + ho.pos_from(s).cross(mH * ho.acc(N))
 
-# turn off the simplification cause it takes forever to compute this dot
-# product
+# turn off the simplification cause it takes forever to compute (sumT).dot(H.z)
 Vector.simp = False
 
 # calculate the steer torque

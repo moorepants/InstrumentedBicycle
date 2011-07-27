@@ -15,7 +15,7 @@ Tdelta = dynamicsymbols('Tdelta')
 #   steer axis
 # ds1, ds3 : measure numbers for the location of the vectornav to the point on
 #   the steer axis, s
-d, ds1, ds3 = symbols('d ds1 ds2')
+d, ds1, ds3 = symbols('d ds1 ds3')
 # damping coefficient for the upper bearing viscous friction
 c = symbols('c')
 
@@ -46,7 +46,7 @@ H = B.orientnew('H', 'Simple', delta, 3)
 
 # handlebar inertia and mass
 IH11, IH22, IH33, IH31 = symbols('IH11 IH22 IH33 IH31')
-IH = inertia(H, I11, I22, I33, 0, 0, I31)
+IH = inertia(H, IH11, IH22, IH33, 0, 0, IH31)
 mH = symbols('mH')
 
 # set the angular velocities of B and H

@@ -25,13 +25,13 @@ We measure the acceleration of a point, $v$, on the bicycle frame.
 We also know the location of the point, $v$, relative to a point, $s$ on the
 steering axis.
 \begin{equation}
-    ^v\bar{r}^s = d_{s1}\hat{b}_1 + d_{s3}\hat{b}_3
+    \bar{r}^{v/s} = d_{s1}\hat{b}_1 + d_{s3}\hat{b}_3
 \end{equation}
 
 The location of the center of mass of the handlebar, $h_o$, is also known
 relative to point $s$.
 \begin{equation}
-    ^s\bar{r}^h_o = d\hat{h}_1
+    \bar{r}^{h_o/s} = d\hat{h}_1
 \end{equation}
 
 $^N\bar{a}^{h_o}$ can be calculated using the two point thereom for
@@ -41,11 +41,12 @@ The angular momentum of the handlebar about its center of mass is:
 \begin{equation}
     ^N\bar{H}^{H/h_o} = I_H \cdot ^N\bar{\omega}^H
 \end{equation}
+where $I_H$ is the inertia dyadic with reference to the center of mass.
 
 Euler's equation for angular momentum of the handlebar about point $s$ can be
 written as so:
 \begin{equation}
-    \sum \bar{T}_H = ^N\dot{\bar{H}}^{H/h_o} + ^s\bar{r}^h_o \times m_H
+    \sum \bar{T}_H = ^N\dot{\bar{H}}^{H/h_o} + \bar{r}^{h_o/s} \times m_H
     \ ^N\bar{a}^s
 \end{equation}
 

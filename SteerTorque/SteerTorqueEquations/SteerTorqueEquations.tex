@@ -1,106 +1,176 @@
 \documentclass[]{article}
-%\usepackage[landscape]{geometry}
 \usepackage{amssymb,amsmath}
+\newcommand{\sgn}{\operatorname{sgn}}
+
+\title{On Calculating the True Bicycle Steer Torque}
+\author{Jason K. Moore}
+\date{July 29, 2011}
 
 \begin{document}
-The angular rate of the bicycle frame, $B$, is measured.
-\begin{equation}
-  ^N\bar{\omega}^B = w_{b1}\hat{b}_1 + w_{b2}\hat{b}_2 + w_{b3}\hat{b}_3
-\end{equation}
+\maketitle
+We measure the torque in the steering column, $T_M$, from a sensor that is
+mounted between both the handlebars and fork steer tube and two sets of
+bearings: the headset and the slip clutch bearings. We are interested in
+knowing the torque applied about the steer axis by the rider's contact forces
+to the handlebars, $T_\delta$. It turns out that this is a function of much of
+the data measured on the bicycle.
 
+A free body diagram can be drawn of the upper portion of the handlebar/fork
+assembly, where the lower portion is cut at the steer torque sensor. The
+torques acting on the handlebar about the steer axis are the measured torque,
+$T_M$, the rider applied steer torque, $T_\delta$, and the friction from the
+upper bearing set which can be described by coulomb, $T_F$, and viscous
+friction, $T_V$.
+
+The coulomb friction can be described as:
+%
+\begin{equation}
+	T_F = F\sgn(\dot\delta) = \left\{
+		\begin{array}{rl}
+			F & \textrm{if $\dot{\delta}>0$}\\
+			0 & \textrm{if $\dot{\delta}=0$}\\
+			-F & \textrm{if $\dot{\delta}<0$}\\
+		\end{array}
+	\right.
+\end{equation}
+%
+and viscous friction as:
+%
+\begin{equation}
+	T_V = c\dot{\delta}
+\end{equation}
+%
+where $F$ is the coulomb friction force and $c$ is the viscous damping
+coefficient.
+
+We measure the angular rate of the bicycle frame, $B$, with three rate gyros:
+%
+\begin{equation}
+	^N\bar{\omega}^B = w_{b1}\hat{b}_1 + w_{b2}\hat{b}_2 + w_{b3}\hat{b}_3
+\end{equation}
+%
 The handlebar, $H$, is connected to the bicycle frame, $B$, by a revolute joint
-that turns through $\delta$, the steering angle and we measure the angular rate
-of the handlebar about the steer axis directly. The angular rate of the
-handlebar is:
+that rotates through the steering angle, $\delta$, and we measure the angular
+rate of the handlebar about the steer axis directly with a rate gyro. The
+angular rate of the handlebar can be written as follows:
+%
 \begin{equation}
-  ^N\bar{\omega}^H = (w_{b1}\cos(\delta) + w_{b2}\sin(\delta))\hat{h}_1 +
-    (-w_{b1}\sin(\delta) + w_{b2}\cos(\delta))\hat{h}_2 + w_{h3}\hat{h}_3
+	^N\bar{\omega}^H = (w_{b1}\cos(\delta) + w_{b2}\sin(\delta))\hat{h}_1 +
+		(-w_{b1}\sin(\delta) + w_{b2}\cos(\delta))\hat{h}_2 + w_{h3}\hat{h}_3
 \end{equation}
-
+%
+The steer rate, $\dot{\delta}$, can be computed by subtracting the angular rate
+of the bicycle frame about the steer axis from the angular rate of the
+handlebar/fork about the steer axis.
+%
+\begin{equation}
+	\dot{\delta} = w_{h3} - w_{b3}
+\end{equation}
+%
 We measure the acceleration of a point, $v$, on the bicycle frame.
+%
 \begin{equation}
-  ^N\bar{a}^v = a_{v1}\hat{b}_1 + a_{v2}\hat{b}_2 + a_{v3}\hat{b}_3
+	^N\bar{a}^v = a_{v1}\hat{b}_1 + a_{v2}\hat{b}_2 + a_{v3}\hat{b}_3
 \end{equation}
-
-We also know the location of the point, $v$, relative to a point, $s$ on the
-steering axis.
+%
+We also know the location of a point on the steer axis, $s$, relative to point
+$v$.
+%
 \begin{equation}
-    \bar{r}^{v/s} = d_{s1}\hat{b}_1 + d_{s3}\hat{b}_3
+	\bar{r}^{s/v} = d_{s1}\hat{b}_1 + d_{s3}\hat{b}_3
 \end{equation}
-
+%
 The location of the center of mass of the handlebar, $h_o$, is also known
 relative to point $s$.
+%
 \begin{equation}
-    \bar{r}^{h_o/s} = d\hat{h}_1
+	\bar{r}^{h_o/s} = d\hat{h}_1
 \end{equation}
-
+%
 $^N\bar{a}^{h_o}$ can be calculated using the two point thereom for
-acceleration twice staring at the point $v$.
-
+acceleration twice staring at the point $v$:
+%
+\begin{equation}
+	^N\bar{a}^s = ^N\bar{a}^v + ^N\dot{\bar{\omega}}^B\times\bar{r}^{s/v} +
+		^N\bar{\omega}^B\times(^N\bar{\omega}^B\times\bar{r}^{s/v})
+\end{equation}
+%
+\begin{equation}
+	^N\bar{a}^{h_o} = ^N\bar{a}^s + ^N\dot{\bar{\omega}}^H\times\bar{r}^{h_o/s} +
+		^N\bar{\omega}^H\times(^N\bar{\omega}^H\times\bar{r}^{h_o/s})
+\end{equation}
+%
 The angular momentum of the handlebar about its center of mass is:
+%
 \begin{equation}
-    ^N\bar{H}^{H/h_o} = I_H \cdot ^N\bar{\omega}^H
+	^N\bar{H}^{H/h_o} = I^{H/h_o} \cdot ^N\bar{\omega}^H
 \end{equation}
-where $I_H$ is the inertia dyadic with reference to the center of mass.
+%
+where $I^{H/h_o}$ is the inertia dyadic with reference to the center of mass
+which exhibits symmetry about the $13$-plane.
 
-Euler's equation for angular momentum of the handlebar about point $s$ can be
-written as so:
+The dynamic equations of motion of the handlebar can be written as the sum of
+the torques on the handlebar about point $s$ is equal to the derivative of the
+angular momentum of $H$ in $N$ about $h_o$ plus the cross product of the vector
+from $s$ to $h_o$ with the mass times the acceleration of $h_o$ in $N$:
+%
 \begin{equation}
-    \sum \bar{T}_H = ^N\dot{\bar{H}}^{H/h_o} + \bar{r}^{h_o/s} \times m_H
-    \ ^N\bar{a}^s
+	\sum \bar{T}^{H/s} = ^N\dot{\bar{H}}^{H/h_o} + \bar{r}^{h_o/s} \times m_H
+		\ ^N\bar{a}^{ho}
 \end{equation}
-
+%
 The only torques applied to the handlebar that we are interested in act about the steer axis.
 \begin{equation}
-    \sum T_{H3} = T_\delta - T_F - T_S - c(w_{h3} - w_{b3})
+	\sum T^{H/s}_3 = T_\delta - T_F - T_M - T_V
 \end{equation}
-
-Looking at only the 3 component of Euler's equation gives this:
+%
+Looking at only the 3 component of the equation of motion gives the following
+relationship:
+%
 \begin{equation}
-    T_\delta - T_F - T_S - c(w_{h3} - w_{b3}) = (^N\dot{\bar{H}}^{H/h_o} + ^s\bar{r}^h_o \times m_H
-    \ ^N\bar{a}^s)
- \cdot \hat{h}_3
+	T_\delta - F\sgn({\dot{\delta}}) - T_M - c(w_{h3} - w_{b3}) = (^N\dot{\bar{H}}^{H/h_o} + ^s\bar{r}^h_o \times m_H
+		\ ^N\bar{a}^s) \cdot \hat{h}_3
 \end{equation}
-
-Solving for $T_\delta$ gives:
+%
+And $T_\delta$ can be solved for:
 \begin{align}
-  T_{\delta} = &
-  I_{H33} \dot{w}_{h3} + \\\notag
-  %
-  & (I_{H11} (w_{b1}\cos(\delta) +
-  w_{b2}\sin(\delta)) +
-  I_{H31} w_{h3}) (-w_{b1}\sin(\delta) +
-  w_{b2}\cos(\delta)) + \\\notag
-  %
-  & I_{H22} (- w_{b1} \sin(\delta) +
-  w_{b2}\cos(\delta))
-  (w_{b1}\cos(\delta) +
-  w_{b2}\sin(\delta)) + \\\notag
-  %
-  & I_{H31} (- (- w_{b3} + w_{h3}) w_{b1}
-  \sin(\delta) +
-  (-w_{b3} + w_{h3})
-  w_{b2}\cos(\delta) +
-  \sin(\delta)\dot{w}_{b2} +
-  \cos(\delta)\dot{w}_{b1}) +\\\notag
-  %
-  & d m_H (d (-w_{b1}\sin(\delta) + w_{b2}
-  \cos(\delta))(w_{b1}\cos(\delta) +
-  w_{b2}\sin(\delta)) +
-  d \dot{w}_{h3}) - \\\notag
-  %
-  & d m_H (- d_{s1} w_{b2}^{2} + d_{s2}
-  \dot{w}_{b2} - (d_{s1}
-  w_{b3} - d_{s2}
-  w_{b1}) w_{b3} +
-  a_{v1})
-  \sin(\delta) +\\\notag
-  %
-  & d m_H(d_{s1} w_{b1}w_{b2} +
-  d_{s1} \dot{w}_{b3} +
-  d_{s2} w_{b2} w_{b3} - d_{s2} \dot{w}_{b1} +
-  a_{v2})\cos(\delta) - \\\notag
-  %
-  & c (- w_{b3} + w_{h3}) + T_F + T_s
+	T_{\delta} = &
+	I_{H33} \dot{w}_{h3} + \\\notag
+	%
+	& (I_{H11} (w_{b1}\cos(\delta) +
+	w_{b2}\sin(\delta)) +
+	I_{H31} w_{h3}) (-w_{b1}\sin(\delta) +
+	w_{b2}\cos(\delta)) + \\\notag
+	%
+	& I_{H22} (- w_{b1} \sin(\delta) +
+	w_{b2}\cos(\delta))
+	(w_{b1}\cos(\delta) +
+	w_{b2}\sin(\delta)) + \\\notag
+	%
+	& I_{H31} (- (- w_{b3} + w_{h3}) w_{b1}
+	\sin(\delta) +
+	(-w_{b3} + w_{h3})
+	w_{b2}\cos(\delta) +
+	\sin(\delta)\dot{w}_{b2} +
+	\cos(\delta)\dot{w}_{b1}) +\\\notag
+	%
+	& d m_H (d (-w_{b1}\sin(\delta) + w_{b2}
+	\cos(\delta))(w_{b1}\cos(\delta) +
+	w_{b2}\sin(\delta)) +
+	d \dot{w}_{h3}) - \\\notag
+	%
+	& d m_H (- d_{s1} w_{b2}^{2} + d_{s2}
+	\dot{w}_{b2} - (d_{s1}
+	w_{b3} - d_{s2}
+	w_{b1}) w_{b3} +
+	a_{v1})
+	\sin(\delta) +\\\notag
+	%
+	& d m_H(d_{s1} w_{b1}w_{b2} +
+	d_{s1} \dot{w}_{b3} +
+	d_{s2} w_{b2} w_{b3} - d_{s2} \dot{w}_{b1} +
+	a_{v2})\cos(\delta) - \\\notag
+%
+	& c (- w_{b3} + w_{h3}) + T_F + T_s
 \end{align}
 \end{document}

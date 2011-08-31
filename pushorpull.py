@@ -13,5 +13,5 @@ while command != 'q':
         print "wait..."
         command = random.choice([True, False])
         commands = ['Push', 'Pull']
-        time.sleep(random.uniform(0., 10.))
+        time.sleep(random.uniform(0., 5.))
         print commands[command]
